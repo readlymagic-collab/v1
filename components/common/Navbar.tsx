@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -20,56 +20,78 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  const isStudentPage = pathname.startsWith("/student");
+
   return (
-    <nav className="w-full border-b border-zinc-100 bg-white shadow-sm transition-all duration-300">
+    <nav className="w-full bg-transparent transition-all duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between lg:h-28 lg:flex-col lg:justify-center lg:gap-6">
           {/* Logo Area */}
-          <div className="flex shrink-0 items-center">
-            <Link href="/" className="transition-transform hover:scale-[1.02]">
-              <Image
-                src="/images/brand.png"
-                alt="ReadlyMagic Logo"
-                width={180}
-                height={40}
-                priority
-                className="h-10 w-auto lg:h-12"
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex lg:items-center lg:gap-8">
-            {navItems.map((item) => (
+          <div
+            className={`flex shrink-0 flex-col items-center ${isStudentPage ? "w-full lg:px-[200px]" : "w-auto"}`}
+          >
+            <div
+              className={`flex w-full items-center justify-between lg:mb-4 ${isStudentPage ? "w-full" : ""}`}
+            >
               <Link
-                key={item.name}
-                href={item.href}
-                className={`hover:text-readly-blue text-[15px] font-semibold transition-all ${
-                  pathname === item.href
-                    ? "text-readly-blue border-readly-blue border-b-2 pb-1"
-                    : "text-zinc-600"
-                }`}
+                href="/"
+                className="transition-transform hover:scale-[1.02]"
               >
-                {item.name}
+                <Image
+                  src="/images/brand.png"
+                  alt="ReadlyMagic Logo"
+                  width={180}
+                  height={40}
+                  priority
+                  className="h-10 w-auto lg:h-12"
+                />
               </Link>
-            ))}
+
+              <Link
+                href="/student"
+                className={`${isStudentPage ? "flex" : "hidden lg:flex"} items-center gap-2 text-sm font-bold text-zinc-500 transition-colors hover:text-red-500`}
+              >
+                Logout <LogOut className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Desktop Navigation Links */}
+            {!isStudentPage && (
+              <div className="hidden lg:flex lg:items-center lg:gap-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`hover:text-readly-blue text-[15px] font-semibold transition-all ${
+                      pathname === item.href
+                        ? "text-readly-blue border-readly-blue border-b-2 pb-1"
+                        : "text-zinc-600"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center lg:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="hover:text-readly-blue inline-flex items-center justify-center rounded-xl p-2 text-zinc-600 transition-colors hover:bg-zinc-50 focus:outline-none"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? (
-                <X className="block h-7 w-7" aria-hidden="true" />
-              ) : (
-                <Menu className="block h-7 w-7" aria-hidden="true" />
-              )}
-            </button>
-          </div>
+          {!isStudentPage && (
+            <div className="flex items-center lg:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="hover:text-readly-blue inline-flex items-center justify-center rounded-xl p-2 text-zinc-600 transition-colors hover:bg-zinc-50 focus:outline-none"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? (
+                  <X className="block h-7 w-7" aria-hidden="true" />
+                ) : (
+                  <Menu className="block h-7 w-7" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

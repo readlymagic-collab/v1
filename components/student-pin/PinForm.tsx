@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface PinFormProps {
@@ -21,13 +21,23 @@ export default function PinForm({
     if (value.length > 1) value = value[0];
     if (!/^\d*$/.test(value)) return;
 
-    const newPin = [...pin];
-    newPin[index] = value;
-    setPin(newPin);
+    const nextPin = [...pin];
+    nextPin[index] = value;
+    setPin(nextPin);
     setError("");
 
     if (value && index < 3) {
       inputs.current[index + 1]?.focus();
+    } else if (value && index === 3) {
+      // Auto-submit when last digit is filled
+      const enteredPin = nextPin.join("");
+      if (enteredPin === demoPin) {
+        router.push(onSuccessRedirect);
+      } else {
+        setError("Invalid PIN. Please try again.");
+        setPin(["", "", "", ""]);
+        inputs.current[0]?.focus();
+      }
     }
   };
 
@@ -55,12 +65,6 @@ export default function PinForm({
     }
   };
 
-  useEffect(() => {
-    if (pin.every((digit) => digit !== "")) {
-      handleSubmit();
-    }
-  }, [pin]);
-
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div className="flex justify-center gap-4">
@@ -76,11 +80,10 @@ export default function PinForm({
             value={digit}
             onChange={(e) => handleInput(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
-            className={`h-16 w-14 rounded-xl border-2 text-center text-3xl font-bold transition-all outline-none ${
-              error
-                ? "border-red-200 bg-red-50 text-red-600 focus:border-red-400"
-                : "focus:border-readly-blue focus:ring-readly-blue/10 border-zinc-200 focus:ring-4"
-            }`}
+            className={`h-16 w-14 rounded-xl border-2 text-center text-3xl font-bold transition-all outline-none ${error
+              ? "border-red-200 bg-red-50 text-red-600 focus:border-red-400"
+              : "focus:border-readly-blue focus:ring-readly-blue/10 border-zinc-200 focus:ring-4"
+              }`}
             autoFocus={i === 0}
           />
         ))}

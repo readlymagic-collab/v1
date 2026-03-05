@@ -27,7 +27,7 @@ export default function UnderDevelopment({ title }: UnderDevelopmentProps) {
               {title}
             </h1>
             <p className="font-medium text-zinc-500">
-              We're currently building some magic for this page. Check back
+              We&apos;re currently building some magic for this page. Check back
               soon!
             </p>
           </div>
