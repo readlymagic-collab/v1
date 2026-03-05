@@ -36,6 +36,6 @@ export function getGlobalStats() {
   };
 }
 
-export function resetDemoData() {
+export function resetDemoData() { 
   localStorage.removeItem("readly_magic_history");
 }
