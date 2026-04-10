@@ -1,0 +1,86 @@
+{
+  "levels": [
+    {
+      "id": 1,
+      "name": "Beginning of Year",
+      "description": "Sept - Nov: First steps into reading",
+      "image": "/images/level1.png",
+      "words": [
+        "a",
+        "and",
+        "I",
+        "in",
+        "is",
+        "it",
+        "the",
+        "to",
+        "we",
+        "you",
+        "can",
+        "go",
+        "like",
+        "see",
+        "me",
+        "my",
+        "up"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Middle of Year",
+      "description": "Dec - Feb: Building fluency",
+      "image": "/images/level2.png",
+      "words": [
+        "look",
+        "come",
+        "help",
+        "here",
+        "for",
+        "on",
+        "not",
+        "am",
+        "do",
+        "said",
+        "are",
+        "he",
+        "she",
+        "was"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "End of Year",
+      "description": "March - May: Mastering sight words",
+      "image": "/images/level3.png",
+      "words": [
+        "away",
+        "big",
+        "blue",
+        "down",
+        "find",
+        "funny",
+        "jump",
+        "make",
+        "one",
+        "play",
+        "red",
+        "run",
+        "three",
+        "two",
+        "where",
+        "yellow",
+        "with",
+        "this",
+        "that",
+        "yes",
+        "no",
+        "what",
+        "an",
+        "be",
+        "good",
+        "has",
+        "him"
+      ]
+    }
+  ]
+}

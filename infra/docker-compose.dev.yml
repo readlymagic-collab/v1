@@ -1,0 +1,21 @@
+
+
+services:
+  server:
+    command: yarn dev
+    volumes:
+      - ..:/app
+      - /app/node_modules
+      - /app/apps/server/node_modules
+    environment:
+      - NODE_ENV=development
+
+  client:
+    command: yarn dev
+    volumes:
+      - ..:/app
+      - /app/node_modules
+      - /app/apps/client/node_modules
+      - /app/apps/client/.next
+    environment:
+      - NODE_ENV=development
